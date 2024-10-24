@@ -1,48 +1,65 @@
-//your JS code here. If required.
+// Get all buttons and the stop button
 let buttons = document.querySelectorAll(".btn");
 let stop = document.querySelector(".stop");
-let obj = {
-  tag: "",
-  check: false,
+
+// Object to store the currently playing sound button
+let audioState = {
+  activeButton: null,
+  isPlaying: false,
 };
+
+// Stop button functionality
 stop.addEventListener("click", () => {
-  stopSong();
+  stopSound();
 });
 
+// Loop through each button and add click event listeners
 buttons.forEach((elem) => {
   elem.addEventListener("click", (e) => {
-    if (obj.check === true) {
-      stopSong();
+    if (audioState.isPlaying) {
+      stopSound();
     }
-
-    addAudio(e, elem);
+    playSound(elem);
   });
 });
 
-function addAudio(e, elem) {
-	let existingAudio = elem.querySelector('audio');
+// Function to play sound
+function playSound(elem) {
+  // Check if there's already an audio element and remove it before adding a new one
+  let existingAudio = elem.querySelector("audio");
   if (existingAudio) {
     elem.removeChild(existingAudio);
   }
-  obj.check = true;
-  obj.tag = elem;
-  let target = e.target.dataset.sound;
+
+  // Set the audio state to track the current button
+  audioState.isPlaying = true;
+  audioState.activeButton = elem;
+
+  // Create a new audio element
+  let target = elem.dataset.sound;
   let audio = document.createElement("audio");
   let source = document.createElement("source");
-  source.src = `./${target}`;
+  source.src = `./sounds/${target}`;  // Adjusted path to reference 'sounds' folder
   audio.setAttribute("autoplay", true);
 
+  // Append the audio element to the button
   audio.appendChild(source);
   elem.appendChild(audio);
 }
 
-function stopSong() {
-  let Text = obj.tag.innerText;
+// Function to stop the current sound
+function stopSound() {
+  if (audioState.activeButton) {
+    let button = audioState.activeButton;
 
-  obj.tag.innerHTML = "";
-  obj.tag.innerText = Text;
-  //   toggle = false;
-  obj.check = false;
-  obj.tag = "";
+    // Remove the audio element from the button
+    let audioElement = button.querySelector("audio");
+    if (audioElement) {
+      button.removeChild(audioElement);
+    }
+
+    // Reset the audio state
+    audioState.isPlaying = false;
+    audioState.activeButton = null;
+  }
 }
-// console.log(buttons);
