@@ -20,6 +20,10 @@ buttons.forEach((elem) => {
 });
 
 function addAudio(e, elem) {
+	let existingAudio = elem.querySelector('audio');
+  if (existingAudio) {
+    elem.removeChild(existingAudio);
+  }
   obj.check = true;
   obj.tag = elem;
   let target = e.target.dataset.sound;
