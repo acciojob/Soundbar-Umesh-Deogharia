@@ -1,20 +1,23 @@
-/*  your css code here. If applicable */
-*{
-    margin: 0%;
-    padding: 0%;
+#buttons {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+	background-color: #a164df;
 }
-
-#buttons{
-    background-color: #A164DF;
-    height: 400px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+ 
+.btn, .stop {
+	background-color: #663399;
+	padding: 10px 20px;
+	color: white;
+	border: none;
+	cursor: pointer;
 }
-
-button{
-    background-color: #663399;
-    color: white;
-    height: 30px;
-    width: 70px;
+ 
+.stop {
+	position: absolute;
+	background-color: black;
+	top: 60vh;
+	left: 44vw;
 }
